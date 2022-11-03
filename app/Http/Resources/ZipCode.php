@@ -3,7 +3,6 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
-use Illuminate\Support\Facades\DB;
 
 
 class ZipCode extends ResourceCollection
@@ -18,20 +17,20 @@ class ZipCode extends ResourceCollection
     {
         $zip = $this->collection;
         //obtenemos la informacion de la base de datos y empezamos a organizar el json mediante arrays
-        $data= array("zip_code" => $zip[0]->zip_code,
-            "locality" => $zip[0]->ciudad,
-            "federal_entity" => array("key" => $zip[0]->clave_entidad,
-                "name" => $zip[0]->entidad,
-                "code" => $zip[0]->cp_vacio));
+        $data= array("zip_code" => $zip[0]->d_codigo,
+            "locality" => $zip[0]->d_estado,
+            "federal_entity" => array("key" => $zip[0]->c_estado,
+                "name" => $zip[0]->d_ciudad,
+                "code" => $zip[0]->c_CP));
         //lo ingresamos a un for por los codigos postales que tienen más asentamientos
         for ($i = 0, $long = count($zip); $i < $long; ++$i) {
-            $data1[$i] = array("key" => $zip[$i]->identificador_uni_asent,
-                "name" => $zip[$i]->asentamiento,
-                "zona_type" => $zip[$i]->zona_ubi_asent,
-                "senttlement_type" => array("name" => $zip[$i]->tipo_asentamiento));
+            $data1[$i] = array("key" => $zip[$i]->id_asenta_cpcons,
+                "name" => $zip[$i]->d_asenta,
+                "zona_type" => $zip[$i]->d_zona,
+                "senttlement_type" => array("name" => $zip[$i]->d_tipo_asenta));
         };
         //continuamos obteniendo la data en otro array
-        $data2=array("municipality" => array("key" => $zip[0]->clave_municipio, "name" => $zip[0]->municipio));
+        $data2=array("municipality" => array("key" => $zip[0]->c_mnpio, "name" => $zip[0]->D_mnpio));
         //creamos una variable con las arrays para imprimirlo
         $zip_code = $data + array("settlements"=>$data1) + $data2;
         //mandamos como reponse el json de la información obtenida de la base de dato

@@ -9,18 +9,13 @@ class Zip_code extends Model
 {
     use HasFactory;
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  stdClass  $zip_code
-     */
 
-    protected $primaryKey= 'zip_code';
+    protected $primaryKey= 'd_codigo';
 
     public function getRouteKeyName(){
-    return 'zip_code';
+    return 'd_codigo';
     }
 
-    protected $table = 'zip_codes';
+    protected $table = 'd_codigo';
 
 }
