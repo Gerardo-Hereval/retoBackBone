@@ -14,8 +14,8 @@ class ApiController extends Controller
 
     public function index($zc)
     {
+        //buscamos en la base de datos para que le sean enviados los datos al Resources
         $zip = DB::table('zip_codes')->where('zip_code',$zc)->get();
-        //$zip = zip_code::where('zip_code',$zc)->get();
         return new ZipCode($zip);
 
     }
