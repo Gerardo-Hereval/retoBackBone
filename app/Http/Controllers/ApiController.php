@@ -20,8 +20,7 @@ class ApiController extends Controller
             abort(404);
         }
 
-    $zip_code = new ZipCode(json_decode($zip->toArray())->data);
-        return json_decode($zip_code)    ;
+        return  new ZipCode($zip);
 
     }
 }
